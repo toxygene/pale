@@ -39,7 +39,12 @@ function run($function)
         throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
     });
 
-    $result = $function();
+    try {
+        $result = $function();
+    } catch (ErrorException $e) {
+        restore_error_handler();
+        throw $e;
+    }
 
     restore_error_handler();
 
