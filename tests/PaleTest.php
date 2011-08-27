@@ -3,8 +3,7 @@
  *
  */
 
-use Pale,
-    PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 
 /**
  *
