@@ -1,5 +1,5 @@
 {
     "name": "toxygene/pale",
-    "description": "asdf",
+    "description": "PHP error to exception trap library",
     "license": "BSD-3-Clause"
 }
