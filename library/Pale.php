@@ -21,32 +21,47 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * @author Justin Hendrickson <justin.hendrickson@gmail.com>
+ * @package Pale
  */
 
 namespace Pale;
 
+use Closure;
 use ErrorException;
 
 /**
- * Run a function and throw any errors as exceptions
+ * Class wrapper for the run function
  *
- * @param function $function
- * @return mixed
+ * @package Pale
  */
-function run($function)
+class Pale
 {
-    set_error_handler(function($errno, $errstr, $errfile, $errline) {
-        throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
-    });
 
-    try {
-        $result = $function();
-    } catch (ErrorException $e) {
+    /**
+     * Run a function and throw any errors as exceptions
+     *
+     * @param Closure $function
+     * @return mixed
+     * @throws ErrorException
+     */
+    static public function run(Closure $function)
+    {
+        set_error_handler(function($errno, $errstr, $errfile, $errline) {
+            throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+        });
+
+        try {
+            $result = $function();
+        } catch (ErrorException $e) {
+            restore_error_handler();
+            throw $e;
+        }
+
         restore_error_handler();
-        throw $e;
+
+        return $result;
     }
 
-    restore_error_handler();
-
-    return $result;
 }

@@ -3,6 +3,7 @@
  *
  */
 
+use Pale\Pale;
 use PHPUnit_Framework_TestCase as TestCase;
 
 /**
@@ -13,7 +14,7 @@ class PaleTest extends TestCase
 
     public function testFunctionReturnIsReturned()
     {
-        $this->assertEquals("test", Pale\run(function() {
+        $this->assertEquals("test", Pale::run(function() {
             return "test";
         }));
     }
@@ -22,7 +23,7 @@ class PaleTest extends TestCase
     {
         $this->setExpectedException("ErrorException");
 
-        Pale\run(function() {
+        Pale::run(function() {
             trigger_error("asdf");
         });
     }
@@ -32,7 +33,7 @@ class PaleTest extends TestCase
         set_error_handler(function() { throw new Exception("external"); });
 
         try {
-            Pale\run(function() {
+            Pale::run(function() {
                 trigger_error("internal");
             });
             $this->fail();
