@@ -3,8 +3,9 @@
     "description": "PHP error to exception trap library",
     "license": "BSD-3-Clause",
     "autoload": {
-        "psr-0": {
-            "Pale": "library/Pale"
-        }
+        "classmap": ["library/Pale/Pale.php"]
+    },
+    "require-dev": {
+        "phpunit/PHPUnit": "3.7.*"
     }
 }
