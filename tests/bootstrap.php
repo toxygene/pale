@@ -1,2 +1,2 @@
 <?php
-require_once "../library/Pale.php";
+require_once "../library/Pale/Pale.php";
