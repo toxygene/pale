@@ -4,7 +4,7 @@ Pale is a simple PHP library that allows a developer to easily convert errors to
 
 ## Usage
 ```php
-use Pale;
+use Pale\Pale;
 try {
     Pale\run(function() {
         trigger_error("this will become an exception");
