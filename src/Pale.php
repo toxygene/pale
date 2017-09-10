@@ -47,21 +47,7 @@ class Pale
      */
     static public function run(callable $callback)
     {
-        set_error_handler(function($errno, $errstr, $errfile, $errline) {
-            if (!(error_reporting() & $errno)) {
-                return;
-            }
-
-            throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
-        });
-
-        try {
-            return $callback();
-        } catch (ErrorException $e) {
-            throw $e;
-        } finally {
-            restore_error_handler();
-        }
+        return run($callback);
     }
 
 }

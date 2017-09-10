@@ -26,12 +26,31 @@
  * @package Pale
  */
 
-use Pale\Pale;
+namespace Pale;
+
+use ErrorException;
 
 /**
+ * Run a function and throw any errors as exceptions
+ *
  * @param callable $callable
  * @return mixed
+ * @throws ErrorException
  */
 function run(callable $callable) {
-    return Pale::run($callable);
+    set_error_handler(function($errno, $errstr, $errfile, $errline) {
+        if (!(error_reporting() & $errno)) {
+            return;
+        }
+
+        throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+    });
+
+    try {
+        return $callable();
+    } catch (ErrorException $e) {
+        throw $e;
+    } finally {
+        restore_error_handler();
+    }
 }
