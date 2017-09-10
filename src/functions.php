@@ -2,7 +2,7 @@
 /**
  * Pale
  *
- * Copyright (c) 2011 Justin Hendrickson
+ * Copyright (c) 2017 Justin Hendrickson
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,42 +26,12 @@
  * @package Pale
  */
 
-namespace Pale;
-
-use Closure;
-use ErrorException;
+use Pale\Pale;
 
 /**
- * Class wrapper for the run function
- *
- * @package Pale
+ * @param callable $callable
+ * @return mixed
  */
-class Pale
-{
-
-    /**
-     * Run a function and throw any errors as exceptions
-     *
-     * @param Closure $function
-     * @return mixed
-     * @throws ErrorException
-     */
-    static public function run(Closure $function)
-    {
-        set_error_handler(function($errno, $errstr, $errfile, $errline) {
-            throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
-        });
-
-        try {
-            $result = $function();
-        } catch (ErrorException $e) {
-            restore_error_handler();
-            throw $e;
-        }
-
-        restore_error_handler();
-
-        return $result;
-    }
-
+function run(callable $callable) {
+    return Pale::run($callable);
 }

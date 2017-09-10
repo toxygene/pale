@@ -4,14 +4,17 @@
  */
 
 use Pale\Pale;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- *
+ * @coversDefaultClass Pale
  */
 class PaleTest extends TestCase
 {
 
+    /**
+     * @covers ::run
+     */
     public function testFunctionReturnIsReturned()
     {
         $this->assertEquals("test", Pale::run(function() {
@@ -19,15 +22,20 @@ class PaleTest extends TestCase
         }));
     }
 
+    /**
+     * @covers ::run
+     * @expectedException \ErrorException
+     */
     public function testErrorsCauseAnErrorExceptionToBeThrown()
     {
-        $this->setExpectedException("ErrorException");
-
         Pale::run(function() {
             trigger_error("asdf");
         });
     }
 
+    /**
+     * @covers ::run
+     */
     public function testErrorHandlerIsRestored()
     {
         set_error_handler(function() { throw new Exception("external"); });

@@ -2,10 +2,24 @@
     "name": "toxygene/pale",
     "description": "PHP error to exception trap library",
     "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Justin Hendrickson",
+            "email": "justin.hendrickson@gmail.com"
+        }
+    ],
     "autoload": {
-        "classmap": ["library/Pale/Pale.php"]
+        "psr-4": {
+            "Pale\\": "src/"
+        },
+        "files": ["src/functions.php"]
     },
-    "require-dev": {
-        "phpunit/PHPUnit": "3.7.*"
+    "autoload-dev": {
+        "psr-4": {
+            "Pale\\Test\\": "tests/"
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "^6.3"
     }
 }
